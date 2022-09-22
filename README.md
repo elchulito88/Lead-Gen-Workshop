@@ -246,7 +246,7 @@ sns.set_theme(style="darkgrid")
 plt.figure(figsize=(16,5))
 plt.title('Feature Importance for Wine Quality')
 plt.ylabel('Pearson Correlation')
-sns.barplot(important_feats.keys(), important_feats.values, palette='seismic_r')
+sns.barplot(x=important_feats.keys(), y=important_feats.values, palette='seismic_r')
 ```
 ```python
 for i in list(important_feats.keys())+['quality']:
