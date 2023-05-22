@@ -12,15 +12,12 @@ from botocore.exceptions import NoCredentialsError
 from domino.training_sets import TrainingSetClient, model
 
 #set DMM vars
-bucket = 'winequality-monitoring'
-model_id='6226ea73369f1c7e27c38e89'
-dmm_model_id='62279c7077ad4ce103068e44'
-dmm_api_key = os.environ['DMM_API_KEY']
+bucket = 'wine-quality-monitoring'
 
 #Load in data
 
 print('Reading in data for batch scoring')
-df = TrainingSetClient.get_training_set_version('winequality-training-data', number = 4).load_raw_pandas()
+df = TrainingSetClient.get_training_set_version('winequality-training-domino-admin', number = 4).load_raw_pandas()
 
 df2 = df.append(df).reset_index(drop=True)
 
@@ -48,7 +45,7 @@ df3 = pd.DataFrame({'id': df2.id,
                    })
 
 #Grab between 50 and 500 random rows from jittered data
-df_inf = df3.sample(n = random.randint(50,500)).reset_index(drop=True)
+df_inf = df3.sample(n = random.randint(50,100)).reset_index(drop=True)
 
 #set up clean customer_ids
 setup_ids = list(range(0, df_inf.shape[0]))
@@ -72,15 +69,15 @@ for n in range(inputs.shape[0]):
         scoring_request = {'data' : setup_dict}
         
         
-        response = requests.post("https://ws-dev.domino-eval.com:443/models/6226ea73369f1c7e27c38e89/latest/model",
+    response = requests.post("https://rev4mlops.domino-eval.com:443/models/646b7aa803e97e4d244dba2a/latest/model",
     auth=(
-        "tjBqCvaVFPzC0V9WYb8YgX2mzvpSpqZgsAfPNngwuUqET9x8pO6oPzUV2YTplfK0",
-        "tjBqCvaVFPzC0V9WYb8YgX2mzvpSpqZgsAfPNngwuUqET9x8pO6oPzUV2YTplfK0"
+        "3OOzvWW9oCneKZnagRZ6ac4lbZ3mseyIxeOB3Yk2XvznYly3tY89UKQgDoatkm2H",
+        "3OOzvWW9oCneKZnagRZ6ac4lbZ3mseyIxeOB3Yk2XvznYly3tY89UKQgDoatkm2H"
     ),
         json=scoring_request
     )
     results.append(response.json().get('result').get('prediction'))
-
+    
 print('Scoring complete')
 
 df_ground_truth=df_inf[['wine_id', 'quality']].rename({'wine_id': 'event_id', 'quality' : 'quality_GT'}, axis=1)
