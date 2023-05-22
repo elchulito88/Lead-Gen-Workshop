@@ -1,9 +1,12 @@
+library(mlflow)
 print("Reading in data")
 project_name <- Sys.getenv('DOMINO_PROJECT_NAME')
 path <- paste('/domino/datasets/local/',project_name,'/WineQualityData.csv')
 path <- gsub(" ", "", path, fixed = TRUE)
 data <- read.csv(file=path)
 head(data)
+
+mlflow_set_experiment(experiment_name=paste("Wine Quality", Sys.getenv('DOMINO_STARTING_USERNAME')))
 
 data$is_red <- as.integer(data$type != 'white')
 
@@ -23,33 +26,39 @@ test_lab_matrix <- as.matrix(test$quality)
 
 dim(train)+dim(test)
 
-print("Training Model")
+with(mlflow_start_run(), {
+    mlflow_set_tag("Model_Type", "R")
+    print("Training Model")
 
-lm_model <- lm(formula = quality ~., data = train)
-lm_model
+    lm_model <- lm(formula = quality ~., data = train)
+    lm_model
 
 
-RSQUARE = function(y_actual,y_predict){
-  cor(y_actual,y_predict)^2
-}
+    RSQUARE = function(y_actual,y_predict){
+      cor(y_actual,y_predict)^2
+    }
 
-preds_lm <- predict(lm_model, newdata = test)
+    preds_lm <- predict(lm_model, newdata = test)
 
-rsquared_lm <-round(RSQUARE(preds_lm, test$quality),3)
-print(rsquared_lm[1])
+    rsquared_lm <-round(RSQUARE(preds_lm, test$quality),3)
+    print(rsquared_lm[1])
 
-#mse
-mse_lm<- round(mean((test_lab_matrix - preds_lm)^2),3)
-print(mse_lm)
+    #mse
+    mse_lm<- round(mean((test_lab_matrix - preds_lm)^2),3)
+    print(mse_lm)
 
-diagnostics = list("R2" = rsquared_lm[1], 
-                   "MSE"=mse_lm)
-library(jsonlite)
-fileConn<-file("dominostats.json")
-writeLines(toJSON(diagnostics), fileConn)
-close(fileConn)
+    mlflow_log_metric("R2", rsquared_lm[1])
+    mlflow_log_metric("MSE", mse_lm)
 
-save(lm_model, file="/mnt/models/R_linear_model.Rda")
+    diagnostics = list("R2" = rsquared_lm[1], 
+                       "MSE"=mse_lm)
+    library(jsonlite)
+    fileConn<-file("dominostats.json")
+    writeLines(toJSON(diagnostics), fileConn)
+    close(fileConn)
+
+    save(lm_model, file="/mnt/models/R_linear_model.Rda")
+})
 
 # install.packages("SHAPforxgboost")
 # install.packages("SHAPforxgboost")

@@ -10,6 +10,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.metrics import r2_score, mean_squared_error
 import os
+import mlflow
+import mlflow.h2o
 
 
 #Set train test split to 70
@@ -22,7 +24,7 @@ data = pd.read_csv(path)
 print('Read in {} rows of data'.format(data.shape[0]))
 
 #Find all pearson correlations of numerical variables with quality
-corr_values = data.corr().sort_values(by = 'quality')['quality'].drop('quality',axis=0)
+corr_values = data.corr(numeric_only=True).sort_values(by = 'quality')['quality'].drop('quality',axis=0)
 
 #Keep all variables with above a 8% pearson correlation
 important_feats=corr_values[abs(corr_values)>0.08]
@@ -42,6 +44,8 @@ print('H2O version -{}'.format(h2o.__version__))
 #initailize local h2o
 h2o.init()
 
+# create a new MLFlow experiemnt
+mlflow.set_experiment(experiment_name="Wine Quality " + os.environ.get('DOMINO_STARTING_USERNAME'))
 
 #Convert data to h2o frames
 hTrain = h2o.H2OFrame(train)
@@ -56,50 +60,60 @@ x.remove(y)
 hTrain[y] = hTrain[y]
 hTest[y] = hTest[y]
 
-# Run AutoML for 5 base models (limited to 1 min max runtime)
-print('Training autoML model...')
-aml = H2OAutoML(max_models=10, max_runtime_secs=30, sort_metric="r2")
-aml.train(x=x, y=y, training_frame=hTrain)
+with mlflow.start_run():
+    # Set MLFlow tag to differenciate the model approaches
+    mlflow.set_tag("Model_Type", "H20 Automl")
+    
+    # Run AutoML for 5 base models (limited to 1 min max runtime)
+    print('Training autoML model...')
+    aml = H2OAutoML(max_models=10, max_runtime_secs=30, sort_metric="r2")
+    aml.train(x=x, y=y, training_frame=hTrain)
 
+    # sns.histplot(np.array(aml.leader.predict(hTest)))
+    print('Evaluating model on validation data...')
+    best_gbm = aml.get_best_model(criterion = 'mse', algorithm = 'gbm') 
+    preds = best_gbm.predict(hTest)
+    print(best_gbm.r2(xval=True))
+    #View performance metrics and save them to domino stats!
+    r2 = round(best_gbm.r2(xval=True),3)
+    mse = round(best_gbm.mse(xval=True),3)
+    print("R2 Score: ", r2)
+    print("MSE: ", mse)
+    # Save the metrics in MLFlow
+    mlflow.log_metric("R2", r2)
+    mlflow.log_metric("MSE", mse)
 
-# sns.histplot(np.array(aml.leader.predict(hTest)))
-print('Evaluating model on validation data...')
-best_gbm = aml.get_best_model(criterion = 'mse', algorithm = 'gbm') 
-preds = best_gbm.predict(hTest)
-print(best_gbm.r2(xval=True))
-#View performance metrics and save them to domino stats!
-r2 = round(best_gbm.r2(xval=True),3)
-mse = round(best_gbm.mse(xval=True),3)
-print("R2 Score: ", r2)
-print("MSE: ", mse)
+    #Code to write R2 value and MSE to dominostats value for population in Domino Jobs View
+    with open('dominostats.json', 'w') as f:
+        f.write(json.dumps({"R2": r2,
+                           "MSE": mse}))
 
-#Code to write R2 value and MSE to dominostats value for population in experiment manager
-with open('dominostats.json', 'w') as f:
-    f.write(json.dumps({"R2": r2,
-                       "MSE": mse}))
+    #Write results to dataframe for viz    
+    results = pd.DataFrame({'Actuals':test.quality.reset_index()['quality'], 'Predictions': preds.as_data_frame()['predict']})
 
-#Write results to dataframe for viz    
-results = pd.DataFrame({'Actuals':test.quality, 'Predictions': preds.as_data_frame()['predict']})
+    print('Creating visualizations...')
+    #Scatterplot
+    fig1, ax1 = plt.subplots(figsize=(10,6))
+    plt.title('H2o Actuals vs Predictions Scatter Plot')
+    sns.regplot( 
+        data=results,
+        x = 'Actuals',
+        y = 'Predictions',
+        order = 3)
+    plt.savefig('/mnt/visualizations/actual_v_pred_scatter.png')
+    mlflow.log_figure(fig1, 'actual_v_pred_scatter.png')
 
-print('Creating visualizations...')
-#Scatterplot
-fig1, ax1 = plt.subplots(figsize=(10,6))
-plt.title('H2o Actuals vs Predictions Scatter Plot')
-sns.regplot( 
-    data=results,
-    x = 'Actuals',
-    y = 'Predictions',
-    order = 3)
-plt.savefig('/mnt/visualizations/h2o_actual_v_pred_scatter.png')
+    #Histogram
+    fig2, ax2 = plt.subplots(figsize=(10,6))
+    plt.title('h2o Actuals vs Predictions Histogram')
+    plt.xlabel('Quality')
+    sns.histplot(results, bins=6, multiple = 'dodge', palette = 'coolwarm')
+    plt.savefig('/mnt/visualizations/actual_v_pred_hist.png')
+    mlflow.log_figure(fig2, 'actual_v_pred_hist.png')
 
-#Histogram
-fig2, ax2 = plt.subplots(figsize=(10,6))
-plt.title('h2o Actuals vs Predictions Histogram')
-plt.xlabel('Quality')
-sns.histplot(results, bins=6, multiple = 'dodge', palette = 'coolwarm')
-plt.savefig('/mnt/visualizations/h2o_actual_v_pred_hist.png')
-
-#Saving trained model to serialized pickle object 
-h2o.save_model(best_gbm, path ='/mnt/models')
+    #Saving trained model to serialized pickle object 
+    h2o.save_model(best_gbm, path ='/mnt/models')
+    
+mlflow.end_run()
 
 print('Script complete!')
