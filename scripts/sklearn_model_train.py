@@ -38,7 +38,7 @@ X = df[important_feats.keys()]
 y = df['quality'].astype('float64')
 
 # create a new MLFlow experiemnt
-mlflow.set_experiment(experiment_name="Wine Quality " + os.environ.get('DOMINO_STARTING_USERNAME'))
+mlflow.set_experiment(experiment_name=os.environ.get('DOMINO_PROJECT_NAME') + " " + os.environ.get('DOMINO_STARTING_USERNAME'))
 
 with mlflow.start_run():
     # Set MLFlow tag to differenciate the model approaches
