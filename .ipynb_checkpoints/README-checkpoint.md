@@ -412,9 +412,6 @@ Be sure to check the box *Log HTTP requests and responses to model instance logs
 </p>    
 
 Click **Next**. On the next page - 
-    
-For **Choose an Environment** select
-`Domino-Workshop-Environment`
 
 For **The file containing the code to invoke (must be a Python or R file)** enter
 
@@ -423,6 +420,9 @@ For **The file containing the code to invoke (must be a Python or R file)** ente
 For **The function to invoke** enter
     
 `predict`
+
+Check that the **Choose an Environment** has the following selected:
+`Domino-Workshop-Environment`
     
 And click **Create Model**
     
@@ -456,7 +456,7 @@ In the next lab we will deploy an R shiny app that exposes a front end for colle
     
 Now that we have a pod running to serve new model requests - we will build out a front end to make calling our model easier for end-users.
     
-To do so - in a new browser tab first navigate back to your Project and then in the left blue menu of your project click into the **Files** section and click **New File**
+To do so - in a new browser tab first navigate back to your Project and then in the left blue menu of your project click into the **Code** section and click **New File**
 <p align="center">
 <img src = readme_images/AddNewFileforAppsh.png width="800">
 </p>     
@@ -472,7 +472,7 @@ Copy the following code snippet in -
  
 ## R/Shiny Example
 ## This is an example of the code you would need in this bash script for a R/Shiny app
-R -e 'shiny::runApp("./scripts/shiny_app.R", port=8888, host="0.0.0.0")'
+R -e 'shiny::runApp("./shiny_app.R", port=8888, host="0.0.0.0")'
  
 ## Flask example
 ## This is an example of the code you would need in this bash script for a Python/Flask app
@@ -492,7 +492,7 @@ Name the file **app.sh** and click **Save**
 </p>         
 
 
-Now navigate back into the Files tab, and enter the **scripts** folder. Click add a new file and name it `shiny_app.R` (make sure the file name is exactly that, it is case sensitive) and then paste the following into the file -
+Now navigate back into the **Code** tab. Click add a new file and name it `shiny_app.R` (make sure the file name is exactly that, it is case sensitive) and then paste the following into the file -
 
 ```R
 #
