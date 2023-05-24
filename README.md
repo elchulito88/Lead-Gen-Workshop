@@ -364,9 +364,49 @@ Click on the Results tab of the job. Scroll down to view the visualizations and 
 </p>
 
 
-We've now trained 3 models and it is time to select which model we'd like to deploy.
+We've now trained 3 models and it is time to select which model we'd like to deploy. Domino experiment management leverages MLflow Tracking to enable easy logging of experiment parameters, metrics, and artifacts. MLflow runs as a service in your Domino cluster, fully integrated within your workspace and jobs, and honoring role-based access control. Existing MLflow experiments work right out of the box with no code changes required!
 
-**Refresh the page**. Inspect the table and graph to understand the R^2 value and Mean Squared Error (MSE) for each model. From our results it looks like the sklearn model is the best candidate to deploy.
+The jobs that we just ran had MLFlow tracking in them to log the R^2 value and Mean Squared Error (MSE).
+
+To view the experiments click on the **Experiments** tab in your project. Here you have one set of experiments that all the jobs were logged against. 
+
+<p align="center">
+<img src = readme_images/Experiments.png width="800">
+</p>
+
+Click on the experiment name to see more details.
+
+<p align="center">
+<img src = readme_images/experimentRuns.png width="800">
+</p>
+
+Within the experiment we can see three different runs corresponding to the three different jobs we created. Our code tagged each with the framework that was used to create the model; H2o Automl, sklearn, and R in this case. We are also tracking the R^2 value and Mean Squared Error (MSE). Our visualisation currently shows only the R^2 value. Let's update it to show both R^2 and MSE so we can get a better view of our models.
+
+Click on the three dots and choose **Edit**
+
+<p align="center">
+<img src = readme_images/experimentEdit.png width="800">
+</p>
+
+Now click on **Target (Metrics)** and select **MSE** to add it to our visualisation. Then click **Save**.
+
+<p align="center">
+<img src = readme_images/experimentEdit.png width="800">
+</p>
+
+From our results it looks like the sklearn model is the best candidate to deploy. Let's compare the runs in more detail.
+
+Click on the checkbox at the top of the list of runs, then the compare button (blue and white rectangles).
+
+<p align="center">
+<img src = readme_images/experimentCompare.png width="800">
+</p>
+
+Here we can see a lot more detail about the different runs. Scroll down to see the parameters (we aren't tracking any this time), the metrics, graphics that are created in the experiments and even the Domino execution details. This gives us the ability to track and share all of the experiments we are doing for a particular initative to ensure we get the best results and have documentation on how we got there.
+
+<p align="center">
+<img src = readme_images/experimentGraphics.png width="800">
+</p>
 
 In the next section of labs we will deploy the model we trained here!
 
