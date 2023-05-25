@@ -506,7 +506,7 @@ To do so - in a new browser tab first navigate back to your Project and then in 
 <img src = readme_images/AddNewFileforAppsh.png width="800">
 </p>     
 
-Next, we will create a file called app.sh. It's a bash script that will start and run the Shiny App server based on the inputs provided.
+Next, we will create a file called **app.sh**. It's a bash script that will start and run the Shiny App server based on the inputs provided.
 Copy the following code snippet in - 
 
 ```shell
@@ -735,7 +735,7 @@ Navigate back to the **settings** tab and click **Copy Link App**
 <img src = readme_images/CopyAppLink.png width="800">
 </p>       
 
-Paste the copied link into a new private/incognito window. Note that you're able to view the app without being logged into Domino. Try sending this URL to a colleague at your company to show them the work you've done.
+Paste the copied link into a new private/incognito window. Note that you're able to view the app without being logged into Domino.
 
 PS - Domino provides free licenses for business users to login and view models/apps etc.
 
