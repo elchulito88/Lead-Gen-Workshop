@@ -291,7 +291,7 @@ Now that we've finished working on our notebook and written data back to our pro
 
 Enter an informative but brief commit message such as "Completed EDA notebook" and click to Sync All Changes. 
 
-Click the Domino logo on the upper left corner of the blue menu and select on the Project page. Then select your project followed by selecting “Files” on the left blue menu as shown below.   
+Click the Domino logo on the upper left corner of the blue menu. Then select **Code** on the left blue menu as shown below.   
 
 Notice that the latest commit will reflect the commit message you just logged and you can see 'EDA_code.ipynb' in your file directory.
 
