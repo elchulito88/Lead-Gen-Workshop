@@ -448,8 +448,7 @@ Sample Scoring Request:
   }
 }
 ```
-    
-Be sure to check the box *Log HTTP requests and responses to model instance logs* 
+
 
 <p align="center">
 <img src = readme_images/NewModelAPIConfig1.png width="800">
@@ -467,6 +466,8 @@ For **The function to invoke** enter
 
 Check that the **Choose an Environment** has the following selected:
 `Domino-Workshop-Environment`
+
+Be sure to check the box *Log HTTP requests and responses to model instance logs*
     
 And click **Create Model**
     
