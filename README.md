@@ -167,7 +167,7 @@ Scroll down to the Run Setup Scripts section
 
 Here we have a script that executes upon startup of workspace sessions or job (pre-run script) and a script that executes upon termination of a workspace session or job (post-run script) 
 
-Finally navigate to the Projects tab - you should see all projects that are leveraging this compute environment. Click on your project to navigate back to your project. 
+Finally navigate to the Projects tab - you should see all projects that are leveraging this compute environment.
 
 <!-- ![image](readme_images/SaidEnvs.png) -->
 
@@ -175,11 +175,15 @@ Finally navigate to the Projects tab - you should see all projects that are leve
 <img src = readme_images/SaidEnvs.png width="800">
 </p>
 
-Click into the **Workspaces** tab to prepare for the next lab.
+Click into the **Projects** tab and click on your project name to prepare for the next lab.
+
+<p align="center">
+<img src = readme_images/trainingProj.png width="800">
+</p>
 
 ### Lab 2.2 - Exploring Workspaces
 
-In the top right corner click **Create New Workspace**
+Click into the **Workspaces** tab on the left, then in the top right corner click **Create New Workspace**
 
 <p align="center">
 <img src = readme_images/AddWorkspace.png width="800">
