@@ -10,7 +10,8 @@
 * Leverage collaboration and documentation capabilities throughout to make all work reproducible and sharable!
 
 
-## Section 1 - Project Set Up
+# Section 1
+## Project Set Up
 
 ### Lab 1.1 - Forking Existing Projects
 Once you have access to the Domino training environment - Guide your mouse to the left blue menu and click the **Search** page. Afterwards, type the word 'Training' in the cell provided and click enter to discover any projects tagged under 'Training'. (The left blue menu shrinks to show only the icon of the pages. Unshrink the left blue menu by guiding your mouse over the icon pages.)
@@ -18,7 +19,7 @@ Once you have access to the Domino training environment - Guide your mouse to th
 <!-- ![image](readme_images/SearchIndex.png) -->
 
 <p align="center">
-<img src = https://github.com/dominopetter/MLOps-Best-Practices/raw/main/readme_images/SearchIndex.png width="800">
+<img src = readme_images/SearchIndex.png width="800">
 </p>
 
 Select the project called WineQuality
@@ -140,7 +141,8 @@ The data source should look like the image below
 
 This concludes all labs in section 1 - Prepare Project and Data! 
 
-## Section 2 - Develop Model
+# Section 2 
+## Develop Model
 
 ### Lab 2.1 - Inspect Compute Environment
 From the left blue menu click on the cube icon page called 'Environments'.
@@ -415,7 +417,8 @@ Here we can see a lot more detail about the different runs. Scroll down to see t
 In the next section of labs we will deploy the model we trained here!
 
 
-## Section 3 - Deploy Model
+# Section 3 
+## Deploy Model
 
 ### Lab 3.1 Deploying Model API Endpoint
 
@@ -708,7 +711,8 @@ Once you're in the app you can try out sending different scoring requests to you
 <img src = readme_images/ShinyScore.png width="800">
 </p>         
 
-## Section 4 - Collaborate Results
+# Section 4 
+## Collaborate Results
 
 ### Lab 4.1 - Share Web App and Model API
 
