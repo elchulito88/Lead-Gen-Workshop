@@ -18,7 +18,7 @@ Once you have access to the Domino training environment - Guide your mouse to th
 <!-- ![image](readme_images/SearchIndex.png) -->
 
 <p align="center">
-<img src = readme_images/SearchIndex.png width="800">
+<img src = https://github.com/dominopetter/MLOps-Best-Practices/raw/main/readme_images/SearchIndex.png width="800">
 </p>
 
 Select the project called WineQuality
