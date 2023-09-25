@@ -245,8 +245,9 @@ sns.heatmap(df.corr(), annot=True, fmt='.1g')
 ```
 
 ```python
-corr_values = df.corr(numeric_only=True).sort_values(by = 'quality')['quality'].drop('quality',axis=0)
-important_feats=corr_values[abs(corr_values)>0.08]
+# Compute the correlation matrix first, then select 'quality' column and sort
+corr_values = df.corr()['quality'].sort_values().drop('quality', axis=0)
+important_feats = corr_values[abs(corr_values) > 0.08]
 print(important_feats)
 sns.set_theme(style="darkgrid")
 plt.figure(figsize=(16,5))
