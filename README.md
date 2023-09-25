@@ -241,7 +241,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 df['is_red'] = df.type.apply(lambda x : int(x=='red'))
 fig = plt.figure(figsize=(10,10))
-sns.heatmap(df.corr(numeric_only=True), annot = True, fmt='.1g')
+sns.heatmap(df.corr(), annot=True, fmt='.1g')
 ```
 
 ```python
