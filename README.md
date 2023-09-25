@@ -42,7 +42,7 @@ In the top right corner, choose the icon to **fork** the project. Name the proje
 
 In your new project - go into the settings tab
 
-View the default hardware tier and compute environment - ensure they are set to 'Small' and 'Domino-Workshop-Environment' respectively:
+View the default hardware tier and compute environment - ensure they are set to 'Small' and 'Domino Analytics Workshop Environment' respectively:
 
 <!-- ![image](readme_images/ProjectSettings.png) -->
 
@@ -153,7 +153,7 @@ From the left blue menu click on the cube icon page called 'Environments'.
 <img src = readme_images/ShowEnv.png width="800">
 </p>
 
-Select 'Domino-Workshop-Environment' 
+Select 'Domino Analytics Workshop Environment' 
 
 <!-- ![image](readme_images/EnvironmentsPage.png) -->
 
@@ -468,7 +468,7 @@ For **The function to invoke** enter
 `predict`
 
 Check that the **Choose an Environment** has the following selected:
-`Domino-Workshop-Environment`
+`Domino Analytics Workshop Environment`
 
 Be sure to check the box *Log HTTP requests and responses to model instance logs*
     
