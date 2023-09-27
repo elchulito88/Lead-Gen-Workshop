@@ -509,7 +509,7 @@ To do so - in a new browser tab first navigate back to your Project and then in 
 <img src = readme_images/AddNewFileforAppsh.png width="800">
 </p>     
 
-Next, we will create a file called **app.sh**. It's a bash script that will start and run the Shiny App server based on the inputs provided.
+Next, we will create a file called ```shell app.sh```. It's a bash script that will start and run the Shiny App server based on the inputs provided.
 Copy the following code snippet in - 
 
 ```shell
