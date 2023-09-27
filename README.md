@@ -380,12 +380,12 @@ To view the experiments click on the **Experiments** tab in your project. Here y
 <img src = readme_images/Experiments.png width="800">
 </p>
 
-Click on the experiment name to see more details.
-
-<p align="center">
-<img src = readme_images/experimentRuns.png width="800">
-</p>
-
+**Click on the experiment name to see more details.**
+<!--
+#<p align="center">
+#<img src = readme_images/experimentRuns.png width="800">
+#</p>
+-->
 Within the experiment we can see three different runs corresponding to the three different jobs we created. Our code tagged each with the framework that was used to create the model; H2o Automl, sklearn, and R in this case. We are also tracking the R^2 value and Mean Squared Error (MSE). Our visualisation currently shows only the R^2 value. Let's update it to show both R^2 and MSE so we can get a better view of our models.
 
 Click on the three dots and choose **Edit**
