@@ -14,7 +14,7 @@
 ## Project Set Up
 
 ### Lab 1.1 - Forking Existing Projects
-Once you have access to the Domino training environment - Guide your mouse to the left blue menu and click the **Search** page. Afterwards, type the word 'Training' in the cell provided and click enter to discover any projects tagged under 'Training'. (The left blue menu shrinks to show only the icon of the pages. Unshrink the left blue menu by guiding your mouse over the icon pages.)
+Once you have access to the Domino training environment - Guide your mouse to the left blue menu and click the **Search** page. Afterwards, type the word 'Workshop' in the cell provided and click enter to discover any projects tagged under 'Workshop'. (The left blue menu shrinks to show only the icon of the pages. Unshrink the left blue menu by guiding your mouse over the icon pages.)
 
 <!-- ![image](readme_images/SearchIndex.png) -->
 
@@ -22,7 +22,7 @@ Once you have access to the Domino training environment - Guide your mouse to th
 <img src = https://github.com/dominopetter/MLOps-Best-Practices/blob/ea35e8fc1d2e718894af8c1da92988fe7f34cd42/readme_images/SearchIndex.png width="800">
 </p>
 
-Select the project called WineQuality
+Select the project called WineQualityWorkshop
 
 <!-- ![image](readme_images/Search.png) -->
 
@@ -42,7 +42,7 @@ In the top right corner, choose the icon to **fork** the project. Name the proje
 
 In your new project - go into the settings tab
 
-View the default hardware tier and compute environment - ensure they are set to 'Small' and 'Domino Analytics Workshop Environment' respectively:
+View the default hardware tier and compute environment - ensure they are set to 'Small' and 'Domino-Workshop-Environment' respectively:
 
 <!-- ![image](readme_images/ProjectSettings.png) -->
 
@@ -153,7 +153,7 @@ From the left blue menu click on the cube icon page called 'Environments'.
 <img src = https://github.com/dominopetter/MLOps-Best-Practices/blob/ea35e8fc1d2e718894af8c1da92988fe7f34cd42/readme_images/ShowEnv.png width="800">
 </p>
 
-Select 'Domino Analytics Workshop Environment' 
+Select 'Domino-Workshop-Environment' 
 
 <!-- ![image](readme_images/EnvironmentsPage.png) -->
 
@@ -394,10 +394,10 @@ Click on the three dots and choose **Edit**
 <img src = https://github.com/dominopetter/MLOps-Best-Practices/blob/ea35e8fc1d2e718894af8c1da92988fe7f34cd42/readme_images/experimentEdit.png width="800">
 </p>
 
-Now click on **Target (Metrics)** and select **MSE** to add it to our visualisation. Then click **Save**.
+Now click on **Target (Metrics)** and select **R2** to add it to our visualisation. Then click **Save**.
 
 <p align="center">
-<img src = https://github.com/dominopetter/MLOps-Best-Practices/blob/ea35e8fc1d2e718894af8c1da92988fe7f34cd42/readme_images/experimentEdit.png width="800">
+<img src = https://github.com/dominopetter/MLOps-Best-Practices/blob/ea35e8fc1d2e718894af8c1da92988fe7f34cd42/readme_images/r2.png width="800">
 </p>
 
 From our results it looks like the sklearn model is the best candidate to deploy and our R model is failing. Let's compare the runs in more detail.

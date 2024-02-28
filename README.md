@@ -394,10 +394,10 @@ Click on the three dots and choose **Edit**
 <img src = https://github.com/dominopetter/MLOps-Best-Practices/blob/ea35e8fc1d2e718894af8c1da92988fe7f34cd42/readme_images/experimentEdit.png width="800">
 </p>
 
-Now click on **Target (Metrics)** and select **MSE** to add it to our visualisation. Then click **Save**.
+Now click on **Target (Metrics)** and select **R2** to add it to our visualisation. Then click **Save**.
 
 <p align="center">
-<img src = https://github.com/dominopetter/MLOps-Best-Practices/blob/ea35e8fc1d2e718894af8c1da92988fe7f34cd42/readme_images/experimentEdit.png width="800">
+<img src = https://github.com/dominopetter/MLOps-Best-Practices/blob/ea35e8fc1d2e718894af8c1da92988fe7f34cd42/readme_images/r2.png width="800">
 </p>
 
 From our results it looks like the sklearn model is the best candidate to deploy and our R model is failing. Let's compare the runs in more detail.
