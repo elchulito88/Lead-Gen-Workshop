@@ -80,7 +80,7 @@ Click back into the Overview area of your project. Then navigate to the Goals ta
 <!-- ![image](readme_images/Overview.png) -->
 
 <p align="center">
-<img src = https://github.com/dominopetter/MLOps-Best-Practices/blob/ea35e8fc1d2e718894af8c1da92988fe7f34cd42/readme_images/Overview.png width="800">
+<img src = https://github.com/dominodatalab/MLOps-Best-Practices/blob/main/readme_images/Overview.png width="800">
 </p>
 
 Click on Add Goals
