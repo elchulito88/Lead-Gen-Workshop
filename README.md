@@ -75,7 +75,7 @@ Change their permissions to Results Consumer.
 
 ### Lab 1.2 - Defining Project Goals
 
-Click back into the Overview area of your project. Then navigate to the Manage tab.
+Click back into the Overview area of your project. Then navigate to the Goals tab.
 
 <!-- ![image](readme_images/Overview.png) -->
 
