@@ -447,7 +447,7 @@ Sample Scoring Request:
     "volatile_acidity": 0.028,
     "chlorides": 0.05 ,
     "is_red":0,
-    "alcohol": 11
+    "alcohol": 11.1
   }
 }
 ```
