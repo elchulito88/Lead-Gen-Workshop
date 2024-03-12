@@ -10,7 +10,20 @@ from sklearn.utils._testing import ignore_warnings
 import json
 import os
 import mlflow
+import mlflow.sklearn
+from mlflow.store.artifact.runs_artifact_repo import RunsArtifactRepository
+from mlflow import MlflowClient
 
+# Define model name
+name = "SKLearn"
+
+# Register model name in the model registry
+client = MlflowClient()
+try:
+  client.create_registered_model(name)
+except:
+  print(f"model {name} already registered")
+    
 #Read in data
 path = str('/mnt/data/{}/WineQualityData.csv'.format(os.environ.get('DOMINO_PROJECT_NAME')))
 df = pd.read_csv(path)
