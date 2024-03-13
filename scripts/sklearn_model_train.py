@@ -13,17 +13,7 @@ import mlflow
 import mlflow.sklearn
 from mlflow.store.artifact.runs_artifact_repo import RunsArtifactRepository
 from mlflow import MlflowClient
-
-# Define model name
-name = "SKLearn"
-
-# Register model name in the model registry
-client = MlflowClient()
-try:
-  client.create_registered_model(name)
-except:
-  print(f"model {name} already registered")
-    
+ 
 #Read in data
 path = str('/mnt/data/{}/WineQualityData.csv'.format(os.environ.get('DOMINO_PROJECT_NAME')))
 df = pd.read_csv(path)
@@ -78,7 +68,7 @@ with mlflow.start_run():
     mlflow.log_metric("MSE", round(mean_squared_error(y_test,preds),3))
 
     #Code to write R2 value and MSE to dominostats value for population in experiment manager
-    with open('dominostats.json', 'w') as f:
+    with open('/mnt/artifacts/dominostats.json', 'w') as f:
         f.write(json.dumps({"R2": round(r2_score(y_test, preds),3),
                            "MSE": round(mean_squared_error(y_test,preds),3)}))
 
@@ -103,6 +93,9 @@ with mlflow.start_run():
     sns.histplot(results, bins=6, multiple = 'dodge', palette = 'coolwarm')
     plt.savefig('/mnt/artifacts/actual_v_pred_hist.png')
     mlflow.log_figure(fig2, 'actual_v_pred_hist.png')
+
+    # Log model
+    mlflow.sklearn.log_model(model, "model")
     
 mlflow.end_run()
 
