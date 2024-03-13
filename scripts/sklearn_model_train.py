@@ -97,6 +97,11 @@ with mlflow.start_run():
     # Log the model in MLflow (new section)
     model_path = "GradientBoostingRegressorModel"
     mlflow.sklearn.log_model(gbr, model_path)
+
+    # Register the model in the MLflow Model Registry (new section)
+    model_uri = f"runs:/{mlflow.active_run().info.run_id}/{model_path}"
+    model_name = "WineQualityGradientBoostingRegressor"
+    mlflow.register_model(model_uri, model_name)
     
 mlflow.end_run()
 
