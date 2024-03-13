@@ -94,8 +94,9 @@ with mlflow.start_run():
     plt.savefig('/mnt/artifacts/actual_v_pred_hist.png')
     mlflow.log_figure(fig2, 'actual_v_pred_hist.png')
 
-    # Log model
-    mlflow.sklearn.log_model(model, "model")
+    # Log the model in MLflow (new section)
+    model_path = "GradientBoostingRegressorModel"
+    mlflow.sklearn.log_model(gbr, model_path)
     
 mlflow.end_run()
 
