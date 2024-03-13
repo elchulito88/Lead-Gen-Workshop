@@ -3,7 +3,7 @@ import uuid
 import datetime
 import numpy as np
 
-model_file_name = "models/sklearn_gbm.pkl"
+model_file_name = "/mnt/artifacts/models/sklearn_gbm.pkl"
 model = pickle.load(open(model_file_name, 'rb'))
 
 # from domino_prediction_logging.prediction_client import PredictionClient
