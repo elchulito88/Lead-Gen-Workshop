@@ -5,7 +5,7 @@
  
 ## R/Shiny Example
 ## This is an example of the code you would need in this bash script for a R/Shiny app
-R -e 'shiny::runApp("./shiny_app.R", port=8888, host="0.0.0.0")'
+R -e 'shiny::runApp("./shiny_app_pharma.R", port=8888, host="0.0.0.0")'
  
 ## Flask example
 ## This is an example of the code you would need in this bash script for a Python/Flask app
