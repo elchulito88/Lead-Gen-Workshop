@@ -52,7 +52,7 @@ with mlflow.start_run():
 
     #initiate and fit Gradient Boosted Classifier
     print('Training model...')
-    gbr = GradientBoostingRegressor(loss='ls',learning_rate = 0.15, n_estimators=75, criterion = 'squared_error')
+    gbr = GradientBoostingRegressor(loss='squared_error',learning_rate = 0.15, n_estimators=75, criterion = 'squared_error')
     gbr.fit(X_train,y_train)
 
     #Predict test set
