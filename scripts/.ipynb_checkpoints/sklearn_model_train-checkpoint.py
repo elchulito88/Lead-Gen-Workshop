@@ -52,7 +52,7 @@ with mlflow.start_run():
 
     #initiate and fit Gradient Boosted Classifier
     print('Training model...')
-    gbr = GradientBoostingRegressor(loss='ls',learning_rate = 0.15, n_estimators=75, criterion = 'mse')
+    gbr = GradientBoostingRegressor(loss='ls',learning_rate = 0.15, n_estimators=75, criterion = 'squared_error')
     gbr.fit(X_train,y_train)
 
     #Predict test set
@@ -61,16 +61,16 @@ with mlflow.start_run():
 
     #View performance metrics and save them to domino stats!
     print("R2 Score: ", round(r2_score(y_test, preds),3))
-    print("MSE: ", round(mean_squared_error(y_test, preds),3))
+    print("Squared Error: ", round(mean_squared_error(y_test, preds),3))
     
     # Save the metrics in MLFlow
     mlflow.log_metric("R2", round(r2_score(y_test, preds),3))
-    mlflow.log_metric("MSE", round(mean_squared_error(y_test,preds),3))
+    mlflow.log_metric("Squared Error", round(mean_squared_error(y_test,preds),3))
 
-    #Code to write R2 value and MSE to dominostats value for population in experiment manager
+    #Code to write R2 value and Squared Error to dominostats value for population in experiment manager
     with open('/mnt/artifacts/dominostats.json', 'w') as f:
         f.write(json.dumps({"R2": round(r2_score(y_test, preds),3),
-                           "MSE": round(mean_squared_error(y_test,preds),3)}))
+                           "Squared Error": round(mean_squared_error(y_test,preds),3)}))
 
     #Write results to dataframe for visualizations
     results = pd.DataFrame({'Actuals':y_test, 'Predictions':preds})
