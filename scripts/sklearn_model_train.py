@@ -46,7 +46,7 @@ mlflow.set_experiment(experiment_name=os.environ.get('DOMINO_PROJECT_NAME') + " 
 with mlflow.start_run():
     # Set MLFlow tag to differenciate the model approaches
     mlflow.set_tag("Model_Type", "sklearn")
-    
+    mlflow.sklearn.autolog(silent=True)
     #Create 70/30 train test split
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
@@ -58,6 +58,7 @@ with mlflow.start_run():
     #Predict test set
     print('Evaluating model on test data...')
     preds = gbr.predict(X_test)
+    autolog_run = mlflow.last_active_run()
 
     #View performance metrics and save them to domino stats!
     print("R2 Score: ", round(r2_score(y_test, preds),3))
@@ -94,19 +95,18 @@ with mlflow.start_run():
     plt.savefig('/mnt/artifacts/actual_v_pred_hist.png')
     mlflow.log_figure(fig2, 'actual_v_pred_hist.png')
 
-    # Log the model in MLflow (new section)
-    model_path = "GradientBoostingRegressorModel"
-    mlflow.sklearn.log_model(gbr, model_path)
+    # Log the model in MLflow automatically - Uncomment to Demo
+    # model_path = "GradientBoostingRegressorModel"
+    # mlflow.sklearn.log_model(gbr, model_path)
 
     # Register the model in the MLflow Model Registry (new section)
-    model_uri = f"runs:/{mlflow.active_run().info.run_id}/{model_path}"
-    model_name = "WineQualityGradientBoostingRegressor"
-    mlflow.register_model(model_uri, model_name)
+    # model_uri = f"runs:/{mlflow.active_run().info.run_id}/{model_path}"
+    # model_name = "WineQualityGradientBoostingRegressor"
+    # mlflow.register_model(model_uri, model_name)
     
 mlflow.end_run()
 
 #Saving trained model to serialized pickle object 
-
 import pickle 
 
 # save best model
