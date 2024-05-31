@@ -9,6 +9,8 @@
 * Deploy model to a containerized endpoint and web-app frontend for consumption
 * Leverage collaboration and documentation capabilities throughout to make all work reproducible and sharable!
 
+Please use the following link for the Workshop Documentation and a full walkthrough: [LINK](http://www.google.com)
+
 
 # Section 1
 ## Project Set Up
