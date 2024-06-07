@@ -46,7 +46,7 @@ ui <- fluidPage(
   )
 )
 
-prediction <- function(inpFeat1,inpFeat2,inpFeat3,inpFeat4,inpFeat5) {
+prediction <- function(inpFeat1, inpFeat2, inpFeat3, inpFeat4, inpFeat5) {
   # Ensure inputs are treated as numeric
   inpFeat1 <- as.numeric(inpFeat1)
   inpFeat2 <- as.numeric(inpFeat2)
@@ -54,20 +54,34 @@ prediction <- function(inpFeat1,inpFeat2,inpFeat3,inpFeat4,inpFeat5) {
   inpFeat4 <- as.numeric(inpFeat4)
   inpFeat5 <- as.numeric(inpFeat5)
   
-  #### COPY FULL LINES 4-7 from R tab in Model APIS page over this line of code. (It's a simple copy and paste) ####
-url <- "https://demo.eval.domino.tech:443/models/663c938000c74e17dcdfd1a5/latest/model"
-response <- POST(
-  url,
- authenticate("uqIOJZXkHs2ZQYkh09FPpUoc8VF6D9cgDzDppjyGvTDCsBlx2TPxJRMr9x4J7SjA", "uqIOJZXkHs2ZQYkh09FPpUoc8VF6D9cgDzDppjyGvTDCsBlx2TPxJRMr9x4J7SjA", type = "basic"), 
-    body = list(
+  # Prepare JSON payload
+  payload <- toJSON(list(
+    data = list(
       density = inpFeat1,
       volatile_acidity = inpFeat2,
       chlorides = inpFeat3,
       is_red = inpFeat4,
       alcohol = inpFeat5
-    ),
-    encode = "json"
+    )
+  ), auto_unbox = TRUE)
+  
+  # Print debugging information
+  print(payload)
+  
+  #### COPY FULL LINES 4-7 from R tab in Model APIS page over this line of code. (It's a simple copy and paste) ####
+url <- "https://demo.eval.domino.tech:443/models/663c938000c74e17dcdfd1a5/latest/model"
+response <- POST(
+  url,
+ authenticate("uqIOJZXkHs2ZQYkh09FPpUoc8VF6D9cgDzDppjyGvTDCsBlx2TPxJRMr9x4J7SjA", "uqIOJZXkHs2ZQYkh09FPpUoc8VF6D9cgDzDppjyGvTDCsBlx2TPxJRMr9x4J7SjA", type = "basic"),  
+    body = payload,
+    encode = "json",
+    content_type_json()
   )
+  
+  if (http_type(response) != "application/json") {
+    stop("API did not return json")
+  }
+  
   result <- content(response, as = "parsed")
   return(result)
 }
@@ -108,6 +122,12 @@ server <- function(input, output, session) {
                       selected = paste0("pnlPredict", input$controller)
     )
     result <- prediction(input$feat1, input$feat2, input$feat3, input$feat4, input$feat5)
+    
+    # Check if the result is valid
+    if (is.null(result$result[[1]][[1]]) || is.na(result$result[[1]][[1]])) {
+      output$summary <- renderText("Error: Invalid prediction result")
+      return()
+    }
     
     pred <- result$result[[1]][[1]]
     modelVersion <- result$release$model_version_number
