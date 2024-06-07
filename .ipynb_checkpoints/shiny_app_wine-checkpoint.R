@@ -66,7 +66,7 @@ prediction <- function(inpFeat1, inpFeat2, inpFeat3, inpFeat4, inpFeat5) {
   ), auto_unbox = TRUE)
   
   # Print debugging information
-  print(payload)
+  #print(payload)
   
   #### COPY FULL LINES 4-7 from R tab in Model APIS page over this line of code. (It's a simple copy and paste) ####
 url <- "https://demo.eval.domino.tech:443/models/663c938000c74e17dcdfd1a5/latest/model"
