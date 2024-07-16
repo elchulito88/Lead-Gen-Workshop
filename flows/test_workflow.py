@@ -7,7 +7,7 @@ def my_simple_test() -> str:
     # TASK ONE
     task_one = DominoJobTask(
         name="List files in directory",
-        domino_job_config=DominoJobConfig(Command="ls -ltrash > /workflow/outputs/output"),
+        domino_job_config=DominoJobConfig(Command="Command="ls -ltrash > /workflow/outputs/output.txt"),
         inputs={},
         outputs={'output': str},
         use_latest=True
