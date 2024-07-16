@@ -4,7 +4,7 @@ from typing import List
 
 # Define the task
 @task
-def list_datasource_objects() -> typing.List[str]:  # Specify list of strings
+def list_datasource_objects() -> List[str]:  # Specify list of strings
     # Instantiate a client and fetch the datasource instance
     object_store = DataSourceClient().get_datasource("winequalityworkshop")
     
@@ -15,7 +15,7 @@ def list_datasource_objects() -> typing.List[str]:  # Specify list of strings
 
 # Define the workflow
 @workflow
-def my_datasource_workflow() -> typing.List[str]:  # Specify list of strings
+def my_datasource_workflow() -> List[str]:  # Specify list of strings
     objects = list_datasource_objects()
     return objects
 
