@@ -2,7 +2,7 @@ from flytekit import workflow
 from flytekitplugins.domino.task import DominoJobConfig, DominoJobTask
 
 @workflow
-def simple_math_workflow(a: int, b: int) -> float:
+def simple_math_workflow_demo(a: int, b: int) -> float:
 
     # Create first task
     add_task = DominoJobTask(
