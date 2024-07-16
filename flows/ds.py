@@ -1,9 +1,10 @@
 from flytekit import task, workflow
 from domino.data_sources import DataSourceClient
+from typing import List
 
 # Define the task
 @task
-def list_datasource_objects() -> list:
+def list_datasource_objects() -> typing.List[str]:  # Specify list of strings
     # Instantiate a client and fetch the datasource instance
     object_store = DataSourceClient().get_datasource("winequalityworkshop")
     
@@ -14,7 +15,7 @@ def list_datasource_objects() -> list:
 
 # Define the workflow
 @workflow
-def my_datasource_workflow() -> list:
+def my_datasource_workflow() -> typing.List[str]:  # Specify list of strings
     objects = list_datasource_objects()
     return objects
 
