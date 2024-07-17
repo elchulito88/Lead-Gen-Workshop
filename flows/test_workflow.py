@@ -6,8 +6,8 @@ def my_simple_test() -> str:
 
     # TASK ONE
     task_one = DominoJobTask(
-        name="List files in directory",
-        domino_job_config=DominoJobConfig(Command="Command="ls -ltrash > /workflow/outputs/output.txt"),
+        name="List files in S3",
+        domino_job_config=DominoJobConfig(Command="python flows/connect_s3.py"),
         inputs={},
         outputs={'output': str},
         use_latest=True
