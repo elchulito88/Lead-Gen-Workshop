@@ -8,7 +8,7 @@ def my_simple_test() -> str:
     task_one = DominoJobTask(
         name="A small Hello",
         domino_job_config=DominoJobConfig(
-            Command="python flows/print_hello.py > /workflow/outputs/output"
+            Command="python flows/print_hello.py"
         ),
         inputs={},
         outputs={'output': str},
