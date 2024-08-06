@@ -3,7 +3,7 @@ from flytekit import workflow
 from flytekitplugins.domino.task import DominoJobConfig, DominoJobTask
 
 @workflow
-def s3_list_objects_workflow() -> List[str]:  # Return type is a list of strings
+def s3_list() -> List[str]:  # Return type is a list of strings
     
     # Task to list objects in S3 bucket
     list_objects_task = DominoJobTask(
