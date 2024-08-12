@@ -13,6 +13,7 @@ import mlflow
 import mlflow.sklearn
 from mlflow.store.artifact.runs_artifact_repo import RunsArtifactRepository
 from mlflow import MlflowClient
+from datetime import datetime
  
 #Read in data
 path = str('/mnt/data/{}/WineQualityData.csv'.format(os.environ.get('DOMINO_PROJECT_NAME')))
