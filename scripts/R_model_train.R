@@ -6,7 +6,8 @@ path <- gsub(" ", "", path, fixed = TRUE)
 data <- read.csv(file=path)
 head(data)
 
-mlflow_set_experiment(experiment_name=paste(Sys.getenv('DOMINO_PROJECT_NAME'), Sys.getenv('DOMINO_STARTING_USERNAME')))
+#mlflow_set_experiment(experiment_name=paste(Sys.getenv('DOMINO_PROJECT_NAME'), Sys.getenv('DOMINO_STARTING_USERNAME')))
+mlflow_set_experiment(experiment_name = paste0(Sys.getenv('DOMINO_PROJECT_NAME'), " ", Sys.getenv('DOMINO_STARTING_USERNAME'), " ", format(lubridate::now(), "%Y-%m-%dT%H:%M:%S")))
 
 data$is_red <- as.integer(data$type != 'white')
 
