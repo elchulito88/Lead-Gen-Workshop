@@ -54,20 +54,34 @@ prediction <- function(inpFeat1, inpFeat2, inpFeat3, inpFeat4, inpFeat5) {
   inpFeat4 <- as.numeric(inpFeat4)
   inpFeat5 <- as.numeric(inpFeat5)
   
-  # Prepare JSON payload
   payload <- toJSON(list(
     data = list(
-      density = inpFeat1,
-      volatile_acidity = inpFeat2,
-      chlorides = inpFeat3,
-      is_red = inpFeat4,
-      alcohol = inpFeat5
+      density = sprintf("%.2f", as.numeric(inpFeat1)),
+      volatile_acidity = sprintf("%.2f", as.numeric(inpFeat2)),
+      chlorides = sprintf("%.2f", as.numeric(inpFeat3)),
+      is_red = as.numeric(inpFeat4),  # Assuming this is intended to be an integer
+      alcohol = sprintf("%.2f", as.numeric(inpFeat5))  # Forces float representation
     )
   ), auto_unbox = TRUE)
   
+  #print("Payload JSON:")
+  #print(payload)
+  
+  
+  # Prepare JSON payload
+  #payload <- toJSON(list(
+  #  data = list(
+  #    density = inpFeat1,
+  #    volatile_acidity = inpFeat2,
+  #    chlorides = inpFeat3,
+  #    is_red = inpFeat4,
+  #    alcohol = inpFeat5
+  #  )
+  #), auto_unbox = TRUE)
+  
   # Print debugging information
-  print("Payload:")
-  print(payload)
+  #print("Payload:")
+  #print(payload)
   
 url <- Sys.getenv("API_URL")
 username <- Sys.getenv("API_USERNAME")
