@@ -113,7 +113,7 @@ mlflow.end_run()
 import pickle 
 
 # save best model
-file = '/mnt/artifacts/models/sklearn_gbm.pkl'
+file = '/mnt/code/models/sklearn_gbm.pkl'
 pickle.dump(gbr, open(file, 'wb'))
 
 print('Script complete!')
