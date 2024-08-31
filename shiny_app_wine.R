@@ -69,13 +69,16 @@ prediction <- function(inpFeat1, inpFeat2, inpFeat3, inpFeat4, inpFeat5) {
   print("Payload:")
   print(payload)
   
-  url <- "https://demo.eval.domino.tech:443/models/6630aa74c49827179e8941cf/latest/model"
-  response <- POST(
-    url,
-    authenticate("Hl2haeStGOIeo3cxOxZJzR9xNO2px85Mw3oMMUD6ftbROp67HkflsBxsKe3BPLUv", "Hl2haeStGOIeo3cxOxZJzR9xNO2px85Mw3oMMUD6ftbROp67HkflsBxsKe3BPLUv", type = "basic"),
-    body = payload,
-    encode = "json",
-    add_headers(`Content-Type` = "application/json")
+url <- Sys.getenv("API_URL")
+username <- Sys.getenv("API_USERNAME")
+password <- Sys.getenv("API_PASSWORD")
+
+response <- POST(
+  url,
+  authenticate(username, password, type = "basic"),
+  body = payload,
+  encode = "json",
+  add_headers(`Content-Type` = "application/json")
   )
   
   # Print debugging information for response

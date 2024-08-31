@@ -36,7 +36,7 @@ ui <- fluidPage(
     # Show a plot of the generated distribution
     mainPanel(
       tabsetPanel(id = "inTabset", type = "tabs",
-                  tabPanel(title="Prediction",value = "pnlPredict",
+                  tabPanel(title="Prediction", value = "pnlPredict",
                            plotlyOutput("plot"),
                            verbatimTextOutput("summary"),
                            verbatimTextOutput("version"),
@@ -66,30 +66,49 @@ prediction <- function(inpFeat1, inpFeat2, inpFeat3, inpFeat4, inpFeat5) {
   ), auto_unbox = TRUE)
   
   # Print debugging information
-  #print(payload)
+  print("Payload:")
+  print(payload)
   
-  #### COPY FULL LINES 4-7 from R tab in Model APIS page over this line of code. (It's a simple copy and paste) ####
-url <- "https://demo.eval.domino.tech:443/models/663c938000c74e17dcdfd1a5/latest/model"
+url <- Sys.getenv("API_URL")
+username <- Sys.getenv("API_USERNAME")
+password <- Sys.getenv("API_PASSWORD")
+
 response <- POST(
   url,
- authenticate("uqIOJZXkHs2ZQYkh09FPpUoc8VF6D9cgDzDppjyGvTDCsBlx2TPxJRMr9x4J7SjA", "uqIOJZXkHs2ZQYkh09FPpUoc8VF6D9cgDzDppjyGvTDCsBlx2TPxJRMr9x4J7SjA", type = "basic"),  
-    body = payload,
-    encode = "json",
-    content_type_json()
+  authenticate(username, password, type = "basic"),
+  body = payload,
+  encode = "json",
+  add_headers(`Content-Type` = "application/json")
   )
+  
+  # Print debugging information for response
+  print("Response:")
+  print(response)
   
   if (http_type(response) != "application/json") {
     stop("API did not return json")
   }
   
   result <- content(response, as = "parsed")
+  
+  # Print debugging information for result content
+  print("Result:")
+  print(result)
+  
   return(result)
 }
 
 # Gauge plot function
 gauge <- function(pos) {
-  breaks <- c(3, 7, 9)
+  if (!is.finite(pos)) {
+    stop("Error: Position must be a finite number")
+  }
+  
+  breaks <- c(3, 7, 9, 10)  # Ensure the length of breaks covers the required ranges
   get.poly <- function(a, b, r1 = 0.5, r2 = 1.0) {
+    if (!is.finite(a) || !is.finite(b)) {
+      stop("Error: 'a' and 'b' must be finite numbers")
+    }
     th.start <- pi * (1 - a / 10)
     th.end   <- pi * (1 - b / 10)
     th       <- seq(th.start, th.end, length = 10)
@@ -100,8 +119,7 @@ gauge <- function(pos) {
   ggplot() +
     geom_polygon(data = get.poly(breaks[1], breaks[2]), aes(x, y), fill = "red") +
     geom_polygon(data = get.poly(breaks[2], breaks[3]), aes(x, y), fill = "gold") +
-    geom_polygon(data = get.poly(breaks[3], breaks[4]), aes(x, y), fill = "orange") +
-    geom_polygon(data = get.poly(breaks[4], breaks[5]), aes(x, y), fill = "forestgreen") +
+    geom_polygon(data = get.poly(breaks[3], breaks[4]), aes(x, y), fill = "forestgreen") +
     geom_polygon(data = get.poly(pos - 0.2, pos + 0.2, 0.2), aes(x, y)) +
     geom_text(data = as.data.frame(breaks), size = 5, fontface = "bold", vjust = 0,
               aes(x = 1.1 * cos(pi * (1 - breaks / 10)), y = 1.1 * sin(pi * (1 - breaks / 10)), label = paste0(breaks))) +
@@ -130,6 +148,15 @@ server <- function(input, output, session) {
     }
     
     pred <- result$result[[1]][[1]]
+    
+    # Print prediction result for debugging
+    print(paste("Prediction:", pred))
+    
+    if (!is.finite(pred)) {
+      output$summary <- renderText("Error: Prediction result is not finite")
+      return()
+    }
+    
     modelVersion <- result$release$model_version_number
     responseTime <- result$model_time_in_ms
     output$summary <- renderText({paste0("Wine Quality estimate is ", round(pred, 2))})
