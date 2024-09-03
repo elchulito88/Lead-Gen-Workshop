@@ -72,7 +72,7 @@ with mlflow.start_run():
 
     # sns.histplot(np.array(aml.leader.predict(hTest)))
     print('Evaluating model on validation data...')
-    best_gbm = aml.get_best_model(criterion = 'mse', algorithm = 'gbm') 
+    best_gbm = aml.leader #get_best_model(criterion = 'mse', algorithm = 'gbm') 
     preds = best_gbm.predict(hTest)
     print(best_gbm.r2(xval=True))
     #View performance metrics and save them to domino stats!
