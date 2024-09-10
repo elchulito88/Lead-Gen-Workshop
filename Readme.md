@@ -1,4 +1,4 @@
-## Domino Hands-On Workshop: Predicting Lead Quality
+## Domino Hands-On Workshop: Predictions
 
 #### In this workshop you will work through an end-to-end workflow broken into various labs to -
 
