@@ -9,4 +9,4 @@
 * Deploy model to a containerized endpoint and web-app frontend for consumption
 * Leverage collaboration and documentation capabilities throughout to make all work reproducible and sharable!
 
-![MLOps](./mlops.jpg)
+![MLOps](https://github.com/dominopetter/MLOps-Best-Practices/blob/main/mlops.jpg)
