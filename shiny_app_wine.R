@@ -173,7 +173,7 @@ server <- function(input, output, session) {
     
     modelVersion <- result$release$model_version_number
     responseTime <- result$model_time_in_ms
-    output$summary <- renderText({paste0("Lead Quality estimate is ", round(pred, 2))})
+    output$summary <- renderText({paste0("Quality estimate is ", round(pred, 2))})
     output$version <- renderText({paste0("Model version used for scoring: ", modelVersion)})
     output$reponsetime <- renderText({paste0("Model response time: ", responseTime, " ms")})
     output$plot <- renderPlotly({
