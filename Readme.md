@@ -8,3 +8,5 @@
 * Compare model performance across different frameworks and select best performing model
 * Deploy model to a containerized endpoint and web-app frontend for consumption
 * Leverage collaboration and documentation capabilities throughout to make all work reproducible and sharable!
+
+![MLOps](./mlops.jpg)
