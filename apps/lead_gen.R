@@ -10,25 +10,25 @@ library(ggplot2)
 # Define UI for application that draws a histogram
 ui <- fluidPage(
   # Application title
-  titlePanel("Wine Quality Prediction"),
+  titlePanel("Lead Quality Prediction"),
   
   # Sidebar with a slider input for number of bins
   sidebarLayout(
     sidebarPanel(
       numericInput(inputId="feat1",
-                   label='density', 
+                   label='Scoring', 
                    value=0.99),
       numericInput(inputId="feat2",
-                   label='volatile_acidity', 
+                   label='Analytics', 
                    value=0.25),
       numericInput(inputId="feat3",
-                   label='chlorides', 
+                   label='Modeling', 
                    value=0.05),
       numericInput(inputId="feat4",
-                   label='is_red', 
+                   label='Conversion', 
                    value=1),
       numericInput(inputId="feat5",
-                   label='alcohol', 
+                   label='Segmentation', 
                    value=10),
       actionButton("predict", "Predict")
     ),
@@ -54,20 +54,34 @@ prediction <- function(inpFeat1, inpFeat2, inpFeat3, inpFeat4, inpFeat5) {
   inpFeat4 <- as.numeric(inpFeat4)
   inpFeat5 <- as.numeric(inpFeat5)
   
-  # Prepare JSON payload
   payload <- toJSON(list(
     data = list(
-      density = inpFeat1,
-      volatile_acidity = inpFeat2,
-      chlorides = inpFeat3,
-      is_red = inpFeat4,
-      alcohol = inpFeat5
+      density = sprintf("%.2f", as.numeric(inpFeat1)),
+      volatile_acidity = sprintf("%.2f", as.numeric(inpFeat2)),
+      chlorides = sprintf("%.2f", as.numeric(inpFeat3)),
+      is_red = as.numeric(inpFeat4),  # Assuming this is intended to be an integer
+      alcohol = sprintf("%.2f", as.numeric(inpFeat5))  # Forces float representation
     )
   ), auto_unbox = TRUE)
   
+  #print("Payload JSON:")
+  #print(payload)
+  
+  
+  # Prepare JSON payload
+  #payload <- toJSON(list(
+  #  data = list(
+  #    density = inpFeat1,
+  #    volatile_acidity = inpFeat2,
+  #    chlorides = inpFeat3,
+  #    is_red = inpFeat4,
+  #    alcohol = inpFeat5
+  #  )
+  #), auto_unbox = TRUE)
+  
   # Print debugging information
-  print("Payload:")
-  print(payload)
+  #print("Payload:")
+  #print(payload)
   
 url <- Sys.getenv("API_URL")
 username <- Sys.getenv("API_USERNAME")
@@ -159,7 +173,7 @@ server <- function(input, output, session) {
     
     modelVersion <- result$release$model_version_number
     responseTime <- result$model_time_in_ms
-    output$summary <- renderText({paste0("Wine Quality estimate is ", round(pred, 2))})
+    output$summary <- renderText({paste0("Quality estimate is ", round(pred, 2))})
     output$version <- renderText({paste0("Model version used for scoring: ", modelVersion)})
     output$reponsetime <- renderText({paste0("Model response time: ", responseTime, " ms")})
     output$plot <- renderPlotly({
