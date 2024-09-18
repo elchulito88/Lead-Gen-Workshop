@@ -1,4 +1,6 @@
-## Domino Hands-On Workshop: Predictions
+# Domino Hands-On Workshop: Predictions
+
+## Update for Domino 6.x
 
 #### In this workshop, you will work through an end-to-end workflow broken into various labs to -
 
