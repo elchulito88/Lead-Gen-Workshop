@@ -7,4 +7,6 @@
 * Train several models in various frameworks
 * Compare model performance across different frameworks and select the best-performing model
 * Deploy model to a containerized endpoint and web-app frontend for consumption
-* Leverage collaboration and documentation capabilities to make all work reproducible and sharable!
+* Leverage collaboration and documentation capabilities to make all work reproducible and sharable!  
+  
+You will find a full walkthrough of our Workshop here: (WORKSHOP LINK)[https://docs.google.com/document/u/4/d/11eA3ney10KzX7GF9G7f5n72f4p7k7CHSpLxoUfbAGE8/pub]
