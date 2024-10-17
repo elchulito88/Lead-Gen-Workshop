@@ -1,0 +1,38 @@
+name: Trigger Job on Push
+
+# Trigger the workflow on any push to the repository
+on:
+  push:
+    branches:
+      - main  # or specify another branch if needed
+
+jobs:
+  trigger_job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: STOP APPLICATION
+        run: |
+          response=$(curl -s -o /dev/null -w "%{http_code}" -X POST "https://se-demo.domino.tech/v4/modelProducts/66d2eebc90d1992080a4d2de/stop?force=false" \
+          -H "accept: application/json" \
+          -d "" \
+          -H "X-Domino-Api-Key: e6a89f042124ffb55918ca22d4dfa655f5c45393ef2cfb6538fb1b3802d9babf")
+          if [ "$response" -ne 200 ]; then
+            echo "Failed to stop the application. HTTP Status: $response"
+            exit 1
+          fi
+        shell: bash
+        continue-on-error: true
+
+      - name: START APPLICATION
+        run: |
+          response=$(curl -s -o /dev/null -w "%{http_code}" -X POST "https://se-demo.domino.tech/v4/modelProducts/66d2eebc90d1992080a4d2de/start" \
+          -H "accept: application/json" \
+          -H "Content-Type: application/json" \
+          -d "{\"environmentId\":\"65f029e66fb33c0d9f186974\",\"hardwareTierId\":\"small-k8s\",\"externalVolumeMountIds\":[]}" \
+          -H "X-Domino-Api-Key: e6a89f042124ffb55918ca22d4dfa655f5c45393ef2cfb6538fb1b3802d9babf")
+          if [ "$response" -ne 200 ]; then
+            echo "Failed to start the application. HTTP Status: $response"
+            exit 1
+          fi
+        shell: bash
