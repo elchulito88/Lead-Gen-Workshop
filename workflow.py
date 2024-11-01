@@ -5,7 +5,7 @@ from flytekitplugins.domino.task import DominoJobConfig, DominoJobTask
 def etl_workflow(a: int, b: int) -> (int, int, int, str, str, int):
     # Create addition task
     add_task = DominoJobTask(
-        name='Add numbers',
+        name='Add Data',
         domino_job_config=DominoJobConfig(Command="python add.py"),
         inputs={'first_value': int, 'second_value': int},
         outputs={'sum': int},
@@ -15,7 +15,7 @@ def etl_workflow(a: int, b: int) -> (int, int, int, str, str, int):
 
     # Create multiplication task
     multiply_task = DominoJobTask(
-        name='Multiply numbers',
+        name='Check numbers',
         domino_job_config=DominoJobConfig(Command="python multiply.py"),
         inputs={'first_value': int, 'second_value': int},
         outputs={'product': int},
@@ -25,7 +25,7 @@ def etl_workflow(a: int, b: int) -> (int, int, int, str, str, int):
 
     # Create subtraction task that depends on the addition task
     subtract_task = DominoJobTask(
-        name='Subtract numbers',
+        name='Remove data',
         domino_job_config=DominoJobConfig(Command="python subtract.py"),
         inputs={'first_value': int, 'second_value': int},
         outputs={'difference': int},
@@ -35,7 +35,7 @@ def etl_workflow(a: int, b: int) -> (int, int, int, str, str, int):
 
     # Create division task that runs in parallel with the subtraction task
     divide_task = DominoJobTask(
-        name='Divide numbers',
+        name='Sort the data',
         domino_job_config=DominoJobConfig(Command="python divide.py"),
         inputs={'first_value': int, 'second_value': int},
         outputs={'division': str},
@@ -45,7 +45,7 @@ def etl_workflow(a: int, b: int) -> (int, int, int, str, str, int):
 
     # Create modulus task that runs in parallel with the subtraction and division tasks
     modulus_task = DominoJobTask(
-        name='Modulus numbers',
+        name='Line it all up',
         domino_job_config=DominoJobConfig(Command="python modulus.py"),
         inputs={'first_value': int, 'second_value': int},
         outputs={'modulus': str},
