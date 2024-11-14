@@ -8,13 +8,6 @@ path <- gsub(" ", "", path, fixed = TRUE)
 data <- read.csv(file = path)
 head(data)
 
-# Rename the target column to "DEFAULT"
-if ("default_payment_next_month" %in% colnames(data)) {
-  colnames(data)[colnames(data) == "default_payment_next_month"] <- "DEFAULT"
-} else {
-  stop("Column 'default_payment_next_month' not found in the data.")
-}
-
 # Verify the renaming
 print("Columns in data after renaming:")
 print(colnames(data))
