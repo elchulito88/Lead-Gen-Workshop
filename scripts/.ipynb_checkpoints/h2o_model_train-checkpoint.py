@@ -19,12 +19,13 @@ n = 70
 
 #read in data then split into train and test
 
-path = str('/mnt/data/{}/WineQualityData.csv'.format(os.environ.get('DOMINO_PROJECT_NAME')))
+path = str('/mnt/data/{}/credit_card_default.csv'.format(os.environ.get('DOMINO_PROJECT_NAME')))
 data = pd.read_csv(path)
 print('Read in {} rows of data'.format(data.shape[0]))
 
 #Find all pearson correlations of numerical variables with quality
-corr_values = data.corr(numeric_only=True).sort_values(by = 'quality')['quality'].drop('quality',axis=0)
+#corr_values = data.corr(numeric_only=True).sort_values(by = 'quality')['quality'].drop('quality',axis=0)
+corr_values = data.corr(numeric_only=True).sort_values(by = 'DEFAULT')['DEFAULT'].drop('DEFAULT',axis=0)
 
 #Keep all variables with above a 8% pearson correlation
 important_feats=corr_values[abs(corr_values)>0.08]
@@ -34,7 +35,8 @@ important_feats=corr_values[abs(corr_values)>0.08]
 #Drop NA rows
 data = data.dropna(how='any',axis=0)
 #Split df into inputs and target
-data = data[list(important_feats.keys())+['quality']]
+#data = data[list(important_feats.keys())+['quality']]
+data = data[list(important_feats.keys())+['DEFAULT']]
 
 train = data[0:round(len(data)*n/100)]
 test = data[train.shape[0]:]
@@ -54,7 +56,8 @@ hTest = h2o.H2OFrame(test)
 
 # Identify predictors and response
 x = hTrain.columns
-y = "quality"
+#y = "quality"
+y = "DEFAULT"
 x.remove(y)
 
 # Isolate target vasriable
@@ -90,7 +93,8 @@ with mlflow.start_run():
                            "MSE": mse}))
 
     #Write results to dataframe for viz    
-    results = pd.DataFrame({'Actuals':test.quality.reset_index()['quality'], 'Predictions': preds.as_data_frame()['predict']})
+    #results = pd.DataFrame({'Actuals':test.quality.reset_index()['quality'], 'Predictions': preds.as_data_frame()['predict']})
+    results = pd.DataFrame({'Actuals':test.quality.reset_index()['DEFAULT'], 'Predictions': preds.as_data_frame()['predict']})
 
     print('Creating visualizations...')
     #Scatterplot

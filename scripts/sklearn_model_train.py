@@ -20,7 +20,7 @@ from datetime import datetime
 scipy.linalg.pinv2 = np.linalg.pinv
  
 #Read in data
-path = str('/mnt/data/{}/WineQualityData.csv'.format(os.environ.get('DOMINO_PROJECT_NAME')))
+path = str('/mnt/data/{}/credit_card_default.csv'.format(os.environ.get('DOMINO_PROJECT_NAME')))
 df = pd.read_csv(path)
 print('Read in {} rows of data'.format(df.shape[0]))
 
@@ -29,10 +29,12 @@ for col in df.columns:
     df.rename({col: col.replace(' ', '_')}, axis =1, inplace = True)
 
 #Create is_red variable to store red/white variety as int    
-df['is_red'] = df.type.apply(lambda x : int(x=='red'))
+#commented out for CC use case
+#df['is_red'] = df.type.apply(lambda x : int(x=='red'))
 
 #Find all pearson correlations of numerical variables with quality
-corr_values = df.corr(numeric_only=True).sort_values(by = 'quality')['quality'].drop('quality',axis=0)
+#corr_values = df.corr(numeric_only=True).sort_values(by = 'quality')['quality'].drop('quality',axis=0)
+corr_values = df.corr(numeric_only=True).sort_values(by='DEFAULT')['DEFAULT']
 
 #Keep all variables with above a 8% pearson correlation
 important_feats=corr_values[abs(corr_values)>0.08]
@@ -43,7 +45,8 @@ important_feats=corr_values[abs(corr_values)>0.08]
 df = df.dropna(how='any',axis=0)
 #Split df into inputs and target
 X = df[important_feats.keys()]
-y = df['quality'].astype('float64')
+#y = df['quality'].astype('float64')
+y = df['DEFAULT'].astype('float64')
 
 # create a new MLFlow experiemnt
 #mlflow.set_experiment(experiment_name=os.environ.get('DOMINO_PROJECT_NAME') + " " + os.environ.get('DOMINO_STARTING_USERNAME'))
@@ -97,7 +100,7 @@ with mlflow.start_run():
 
     fig2, ax2 = plt.subplots(figsize=(10,6))
     plt.title('Sklearn Actuals vs Predictions Histogram')
-    plt.xlabel('Quality')
+    plt.xlabel('Default')
     sns.histplot(results, bins=6, multiple = 'dodge', palette = 'coolwarm')
     plt.savefig('/mnt/artifacts/actual_v_pred_hist.png')
     mlflow.log_figure(fig2, 'actual_v_pred_hist.png')
