@@ -30,7 +30,10 @@ ui <- fluidPage(
       numericInput(inputId="feat5",
                    label='Segmentation', 
                    value=10),
-      actionButton("predict", "Predict")
+      numericInput(inputId="feat6",
+                   label='Segmentation', 
+                   value=1),
+        actionButton("predict", "Predict")
     ),
     
     # Show a plot of the generated distribution
@@ -46,14 +49,15 @@ ui <- fluidPage(
   )
 )
 
-prediction <- function(inpFeat1, inpFeat2, inpFeat3, inpFeat4, inpFeat5) {
+prediction <- function(inpFeat1, inpFeat2, inpFeat3, inpFeat4, inpFeat5, inpFeat6) {
   # Ensure inputs are treated as numeric
   inpFeat1 <- as.numeric(inpFeat1)
   inpFeat2 <- as.numeric(inpFeat2)
   inpFeat3 <- as.numeric(inpFeat3)
   inpFeat4 <- as.numeric(inpFeat4)
   inpFeat5 <- as.numeric(inpFeat5)
-
+  inpFeat6 <- as.numeric(inpFeat6)
+    
   # Payload Design: 'LIMIT_BAL', 'PAY_4', 'PAY_3', 'PAY_2', 'PAY_0', 'DEFAULT'  
   payload <- toJSON(list(
     data = list(
@@ -155,7 +159,7 @@ server <- function(input, output, session) {
     updateTabsetPanel(session, "inTabset",
                       selected = paste0("pnlPredict", input$controller)
     )
-    result <- prediction(input$feat1, input$feat2, input$feat3, input$feat4, input$feat5)
+    result <- prediction(input$feat1, input$feat2, input$feat3, input$feat4, input$feat5, input$feat6)
     
     # Check if the result is valid
     if (is.null(result$result[[1]][[1]]) || is.na(result$result[[1]][[1]])) {
