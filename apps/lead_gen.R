@@ -53,14 +53,16 @@ prediction <- function(inpFeat1, inpFeat2, inpFeat3, inpFeat4, inpFeat5) {
   inpFeat3 <- as.numeric(inpFeat3)
   inpFeat4 <- as.numeric(inpFeat4)
   inpFeat5 <- as.numeric(inpFeat5)
-  
+
+  # Payload Design: 'LIMIT_BAL', 'PAY_4', 'PAY_3', 'PAY_2', 'PAY_0', 'DEFAULT'  
   payload <- toJSON(list(
     data = list(
-      density = sprintf("%.2f", as.numeric(inpFeat1)),
-      volatile_acidity = sprintf("%.2f", as.numeric(inpFeat2)),
-      chlorides = sprintf("%.2f", as.numeric(inpFeat3)),
-      is_red = as.numeric(inpFeat4),  # Assuming this is intended to be an integer
-      alcohol = sprintf("%.2f", as.numeric(inpFeat5))  # Forces float representation
+      LIMIT_BAL = sprintf("%.2f", as.numeric(inpFeat1)),
+      PAY_4 = sprintf("%.2f", as.numeric(inpFeat2)),
+      PAY_3 = sprintf("%.2f", as.numeric(inpFeat3)),
+      PAY_2 = as.numeric(inpFeat4),  # Assuming this is intended to be an integer
+      PAY_0 = sprintf("%.2f", as.numeric(inpFeat5))  # Forces float representation
+      DEFAULT = sprintf("%.2f", as.numeric(inpFeat5))  # Forces float representation
     )
   ), auto_unbox = TRUE)
   
