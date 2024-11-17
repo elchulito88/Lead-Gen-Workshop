@@ -2,7 +2,7 @@
 
 #### In this workshop, you will work through an end-to-end workflow broken into various labs to -
 
-* Read in data from a live source
+* Read in data from a live datasource
 * Prepare your data in an IDE of your choice, with an option to leverage distributed computing clusters
 * Train several models in various frameworks
 * Compare model performance across different frameworks and select the best-performing model
