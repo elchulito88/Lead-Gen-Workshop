@@ -20,7 +20,7 @@ from datetime import datetime
 scipy.linalg.pinv2 = np.linalg.pinv
  
 #Read in data
-path = str('/mnt/data/{}/credit_card_default.csv'.format(os.environ.get('DOMINO_PROJECT_NAME')))
+path = str('/mnt/data/mlops-best-practices/credit_card_default.csv')
 df = pd.read_csv(path)
 print('Read in {} rows of data'.format(df.shape[0]))
 
