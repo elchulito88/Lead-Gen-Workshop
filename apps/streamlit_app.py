@@ -58,16 +58,10 @@ with st.sidebar.form("my_form"):
     PAY_3 = st.number_input('Repayment status 3 months ago', min_value = -1, max_value = 9)
     PAY_4 = st.number_input('Repayment status 4 months ago', min_value = -1, max_value = 9)
     LIMIT_BAL = st.number_input('Credit Limit', min_value=0)
-    BILL_AMT1 = st.number_input('Current Balance', min_value=0)
-    AGE = st.number_input('Insert applicant age', min_value = 20, max_value = 115)
+    BILL_AMT1 = st.number_input('Bill Amount', min_value=0)
     scored = st.form_submit_button("Score")
  
-# baseline = '/domino/datasets/local/CreditCard-Approval/data/train_data_0.csv'
-# df_cr = pd.read_csv(baseline)
- 
-# age_min, age_max = 21, 115
-# age_std = (age - age_min) / (age_max - age_min)
- 
+
 column_names = ["PAY_0", "PAY_2", "PAY_3", "PAY_4", "LIMIT_BAL", "BILL_AMT1"]
  
 # column_names_all = ['PAY_0', 'PAY_2', 'PAY_4', 'LIMIT_BAL', 'PAY_3', 'BILL_AMT1']
