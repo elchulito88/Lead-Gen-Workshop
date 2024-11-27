@@ -1,0 +1,17 @@
+API KEY
+e6a89f042124ffb55918ca22d4dfa655f5c45393ef2cfb6538fb1b3802d9babf
+
+curl -X GET "https://presentation.domino-eval.com/v4/modelProducts?projectId=66192680d33d7575cd5fc560" -H  "accept: application/json"
+
+curl -X GET "https://presentation.domino-eval.com/v4/modelProducts?projectId=66e2b25f052adf30c9553222" -H  "accept: application/json" -H  "X-Domino-Api-Key: 8a056acff54589cd760f582c971f369c95ba8043e52606ec10340b825d79f6c8"
+
+START
+curl -X POST "https://presentation.domino-eval.com/v4/modelProducts/66e2e072052adf30c9553340/start" -H  "accept: application/json" -H  "Content-Type: application/json" -d "{\"environmentId\":\"66e2b0c9052adf30c9553212\",\"hardwareTierId\":\"small-k8s\",\"externalVolumeMountIds\":[]}" -H  "X-Domino-Api-Key: 8a056acff54589cd760f582c971f369c95ba8043e52606ec10340b825d79f6c8"
+
+STOP
+curl -X POST "https://presentation.domino-eval.com/v4/modelProducts/66e2e072052adf30c9553340/stop?force=false" -H  "accept: application/json" -d "" -H  "X-Domino-Api-Key: 8a056acff54589cd760f582c971f369c95ba8043e52606ec10340b825d79f6c8" 
+
+
+
+
+[{"modelProductType":"APP","projectId":"66192680d33d7575cd5fc560","name":"Demo Application","description":"","publisher":{"firstName":"Petter","lastName":"Olsson","fullName":"Petter Olsson","userName":"petter","email":"petter@dominodatalab.com","avatarUrl":"","id":"64de7f451e0439693c1866b8","idpId":"0c0324b9-78e4-4149-8030-539361e11f00"},"created":"2024-08-31T10:21:48.835Z","lastUpdated":"2024-08-31T10:21:48.835Z","status":"Pending","media":[],"openUrl":"/u/petter/MLOps-Best-Practices/app","projectUrl":"/jobs/petter/MLOps-Best-Practices","tags":[],"stats":{"usageCount":0},"appExtension":{"appType":"Shiny"},"id":"66d2eebc90d1992080a4d2de","latestAppVersionId":"66d2eebc90d1992080a4d2df","runningAppUrl":"/launchpad-publisher/petter/MLOps-Best-Practices/publishApp?appId=66d2eebc90d1992080a4d2df#appversions","runningCommitId":"ceaacfc55411bb6ec39f89e5059314c5bc4542eb","environmentId":"667c49bbebc6d949702d04a7","hardwareTierId":"small-k8s","permissionsData":{"visibility":"GRANT_BASED","accessRequestStatuses":{"64de7f451e0439693c1866b8":"ALLOWED","64de60f063a5d44f77a59f69":"ALLOWED","65a95cfc4f6a337e20ade855":"ALLOWED"},"pendingInvitations":[],"discoverable":true,"appAccessStatus":"ALLOWED"},"runDescribeUrl":null,"goalIds":[]}]
