@@ -18,13 +18,13 @@ You will find a full walkthrough of our Workshop here: [VERSION 5.x WORKSHOP LIN
 
 
 ## Project File Structure Structure
-admin
-apps
-documentation
-models
-results
-scripts
-visualizations
+- admin
+- apps
+- documentation
+- models
+- results
+- scripts
+- visualizations
 
 ## Domino Environment Definition
 FROM
